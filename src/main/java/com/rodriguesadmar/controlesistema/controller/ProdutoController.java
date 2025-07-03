@@ -2,11 +2,13 @@ package com.rodriguesadmar.controlesistema.controller;
 
 import com.rodriguesadmar.controlesistema.model.Produto;
 import com.rodriguesadmar.controlesistema.service.ProdutoService;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -55,9 +57,17 @@ public class ProdutoController {
     }
 
     @PostMapping("/salvar")
-    public String salvarProduto(@ModelAttribute Produto produto){
+    public String salvarProduto(@Valid @ModelAttribute Produto produto, BindingResult result, Model model){
+
+        if (result.hasErrors()) {
+            logger.warn("Erros de validação encontrados ao salvar produto {}", result.getAllErrors());
+            model.addAttribute("produto", produto);
+            return "produtos/formulario";
+        }
+
         produtoService.save(produto);
-        return "redirect:/produtos";
+        logger.info("Produto salvo com sucesso: ID {}, nome {}", produto.getId(), produto.getNome());
+        return "redirect:produtos";
     }
 
     @GetMapping("/editar/{id}")
