@@ -27,6 +27,12 @@ public class ProdutoController {
         this.produtoService = produtoService;
     }
 
+
+    @GetMapping("/")
+    public String redirecionarRaiz() {
+        return "redirect:/produtos";
+    }
+
     @GetMapping
     public String listarProdutos(Model model){
         List<Produto> Produtos = produtoService.findAll();
