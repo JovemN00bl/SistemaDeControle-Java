@@ -9,6 +9,13 @@
 <body>
 <div class="container mt-5">
   <h1 class="mb-4">Lista de Produtos</h1>
+    <div th:fragment="alerta-sucesso">
+        <div th:if="${mensagemSucesso}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <span th:text="${mensagemSucesso}">Mensagem de sucesso placeholder.</span>
+
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
 
   <a th:href="@{/produtos/novo}" class="btn btn-primary mb-3">Adicionar Novo Produto</a>
 
@@ -38,7 +45,7 @@
            onclick="return confirm('Tem certeza que deseja excluir este produto?');">Excluir</a>
       </td>
     </tr>
-    <tr th:if="${#lists.isEmpty(produtos)}">
+    <tr th:if="${#lists.isEmpty(Produtos)}">
       <td colspan="8">Nenhum produto encontrado.</td>
     </tr>
     </tbody>

@@ -8,6 +8,15 @@
 </head>
 <body>
 <div class="container mt-5">
+
+    <div th:fragment="alerta-erro">
+        <div th:if="${mensagemErro}" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <span th:text="${mensagemErro}">Mensagem de erro placeholder.</span>
+
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+
   <h1 th:text="${produto.id == null ? 'Adicionar Novo Produto' : 'Editar Produto'}" class="mb-4"></h1>
 
   <form th:action="@{/produtos/salvar}" th:object="${produto}" method="post">
