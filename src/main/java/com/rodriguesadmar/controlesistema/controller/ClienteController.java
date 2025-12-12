@@ -49,6 +49,11 @@ public class ClienteController {
             clienteService.save(cliente);
             attributes.addFlashAttribute("mensagemSucesso", "Cliente salvo com Sucesso!");
             return "redirect:/clientes";
+        }catch (IllegalArgumentException e) {
+            logger.error("Erro de validação: {}", e.getMessage());
+            model.addAttribute("mensagemErro", e.getMessage());
+            return "clientes/formulario";
+
         } catch (DataIntegrityViolationException e) {
             logger.error("Erro ao salvar cliente: {}", e.getMessage());
             model.addAttribute("mensagemErro", "Erro: CPF/CNPJ ou E-mail já cadastrados no sistema.");

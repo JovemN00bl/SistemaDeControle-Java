@@ -26,6 +26,14 @@ public class ClienteService {
 
     public Cliente save(Cliente cliente) {
 
+        if (clienteRepository.existsByCpfOuCnpj(cliente.getCpfOuCnpj())) {
+            throw new IllegalArgumentException("CPF/CNPJ já cadastrado no sistema.");
+        }
+
+        if (clienteRepository.existsByEmail(cliente.getEmail())) {
+            throw new IllegalArgumentException("Email já cadastrado no sistema.");
+        }
+
         return clienteRepository.save(cliente);
 
     }
