@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.sql.Time;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,8 +22,6 @@ import java.util.List;
 public class PedidoService {
 
     private final PedidoRepository PedidoVendaRepository;
-    private final PedidoService pedidoService;
-    private final ClienteService clienteService;
     private final ProdutoService produtoService;
 
     public List<PedidoVenda> findAll() {
