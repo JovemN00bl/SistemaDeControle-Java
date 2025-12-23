@@ -48,10 +48,7 @@ public class ProdutoController {
     }
 
 
-    @GetMapping("/")
-    public String redirecionarRaiz() {
-        return "redirect:/produtos";
-    }
+
 
     @GetMapping
     public String listarProdutos(Model model) {
