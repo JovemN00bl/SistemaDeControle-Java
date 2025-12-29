@@ -6,10 +6,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 
 @Repository
 public interface PedidoRepository extends JpaRepository<PedidoVenda, Long> {
+
+    List<PedidoVenda> findAllByOrderByDataHoraDesc();
 
 
     @Query("SELECT SUM(p.valorTotal) FROM PedidoVenda p")
