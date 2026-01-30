@@ -13,8 +13,15 @@
         <a class="navbar-brand" href="/">Sistema de Gestão</a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav me-auto">
-                <li class="nav-item"><a class="nav-link" href="/vendas">Voltar para Lista</a></li>
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/produtos">Produtos</a></li>
+                <li class="nav-item"><a class="nav-link" href="/clientes">Clientes</a></li>
+                <li class="nav-item"><a class="nav-link active" href="/vendas">Vendas</a></li>
+                <li class="nav-item"><a class="nav-link" href="/usuarios">Usuarios</a></li>
             </ul>
+            <form th:action="@{/logout}" method="post" class="d-flex">
+                <button class="btn btn-outline-danger btn-sm" type="submit">Sair</button>
+            </form>
         </div>
     </div>
 </nav>

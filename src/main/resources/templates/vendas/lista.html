@@ -17,7 +17,12 @@
                 <li class="nav-item"><a class="nav-link" href="/produtos">Produtos</a></li>
                 <li class="nav-item"><a class="nav-link" href="/clientes">Clientes</a></li>
                 <li class="nav-item"><a class="nav-link active" href="/vendas">Vendas</a></li>
+                <li class="nav-item"><a class="nav-link" href="/usuarios">Usuarios</a></li>
+
             </ul>
+            <form th:action="@{/logout}" method="post" class="d-flex">
+                <button class="btn btn-outline-danger btn-sm" type="submit">Sair</button>
+            </form>
         </div>
     </div>
 </nav>
