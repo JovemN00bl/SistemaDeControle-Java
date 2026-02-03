@@ -63,7 +63,7 @@
                    onclick="return confirm('Tem certeza que deseja excluir este produto?');">Excluir</a>
             </td>
         </tr>
-        <tr th:if="${#lists.isEmpty(produtos)}">
+        <tr th:if="${Produtos.isEmpty()}">
             <td colspan="7" class="text-center">Nenhum produto encontrado.</td>
         </tr>
         </tbody>

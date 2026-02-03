@@ -25,14 +25,15 @@ public class ClienteService {
     }
 
     public Cliente save(Cliente cliente) {
-
-        if (clienteRepository.existsByCpfOuCnpj(cliente.getCpfOuCnpj())) {
-            throw new IllegalArgumentException("CPF/CNPJ já cadastrado no sistema.");
+        Optional<Cliente> clienteExistente = clienteRepository.findByCpfOuCnpj(cliente.getCpfOuCnpj());
+        if (clienteExistente.isPresent() && !clienteExistente.get().getId().equals(cliente.getId())) {
+            throw new IllegalArgumentException("Já existe um cliente cadastrado com este CPF");
         }
-
-        if (clienteRepository.existsByEmail(cliente.getEmail())) {
+        if (clienteExistente.isPresent() && !clienteExistente.get().getEmail().equals(cliente.getEmail())) {
             throw new IllegalArgumentException("Email já cadastrado no sistema.");
+
         }
+
 
         return clienteRepository.save(cliente);
 

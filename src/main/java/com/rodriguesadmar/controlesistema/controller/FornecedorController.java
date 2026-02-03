@@ -40,6 +40,7 @@ public class FornecedorController {
     public String editarFornecedor(@PathVariable Long id, Model model) {
         fornecedorRepository.findById(id).ifPresent(fornecedor ->
                 model.addAttribute("fornecedor", fornecedor));
+
         return "fornecedores/formulario";
     }
 

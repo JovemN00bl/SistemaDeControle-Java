@@ -112,6 +112,7 @@ public class ProdutoController {
     public String excluirProduto(@PathVariable Long id, RedirectAttributes attributes){
         produtoService.findById(id).ifPresent(p -> {
             attributes.addFlashAttribute("mensagemSucesso", "produto " + p.getNome() + "excluído com sucesso!");
+            produtoService.deleteById(id);
         });
         
         return "redirect:/produtos";
