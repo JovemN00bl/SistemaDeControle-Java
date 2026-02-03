@@ -18,7 +18,7 @@
                 <li class="nav-item"><a class="nav-link" href="/clientes">Clientes</a></li>
                 <li class="nav-item"><a class="nav-link active" href="/vendas">Vendas</a></li>
                 <li class="nav-item"><a class="nav-link" href="/usuarios">Usuarios</a></li>
-
+                <li class="nav-item"><a class="nav-link" href="/fornecedores">Fornecedores</a></li>
             </ul>
             <form th:action="@{/logout}" method="post" class="d-flex">
                 <button class="btn btn-outline-danger btn-sm" type="submit">Sair</button>
@@ -64,7 +64,7 @@
                         </a>
                     </td>
                 </tr>
-                <tr th:if="${vendas.empty}">
+                <tr th:if="${vendas.isEmpty()}">
                     <td colspan="6" class="text-center py-4">Nenhuma venda registrada ainda.</td>
                 </tr>
                 </tbody>
