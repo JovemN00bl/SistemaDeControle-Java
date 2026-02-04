@@ -31,7 +31,7 @@ public class Produto {
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal precoCusto;
 
-    @NotNull(message = "O preço de custo é obrigatório.")
+    @NotNull(message = "O preço de venda é obrigatório.")
     @DecimalMin(value = "0.01", inclusive = true, message = "O preço de venda deve ser maior que zero.")
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal precoVenda;
