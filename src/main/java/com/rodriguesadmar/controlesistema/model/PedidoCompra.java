@@ -17,7 +17,7 @@ public class PedidoCompra {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDateTime dataCompra = LocalDateTime.now();
+    public LocalDateTime dataCompra = LocalDateTime.now();
     private Double valorTotal = 0.0;
 
     @ManyToOne
