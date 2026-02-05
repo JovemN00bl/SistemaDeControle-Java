@@ -54,9 +54,10 @@
                     <td th:text="${#numbers.formatCurrency(compra.valorTotal)}" class="fw-bold text-danger">R$ 500,00</td>
 
                     <td>
-                        <button class="btn btn-sm btn-outline-secondary" disabled>
+                        <a th:href="@{/compras/{id}(id=${compra.id})}" class="btn btn-sm btn-outline-primary">
                             <i class="bi bi-eye"></i> Ver Itens
-                        </button>
+                        </a>
+
                     </td>
                 </tr>
                 <tr th:if="${compras.isEmpty()}">

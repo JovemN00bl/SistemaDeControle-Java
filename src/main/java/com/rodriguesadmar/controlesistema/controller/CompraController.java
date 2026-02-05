@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -46,5 +47,14 @@ public class CompraController {
     public String listaCompra(Model model) {
         model.addAttribute("compras", pedidoRepository.findAllByOrderByDataCompraDesc());
         return "compras/lista";
+    }
+
+    @GetMapping("/{id}")
+    public String detalheCompras(@PathVariable Long id, Model model) {
+        PedidoCompra pedido = pedidoRepository.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("Compra Invalida " + id));
+        model.addAttribute("pedido", pedido );
+        return "compras/detalhes";
+
     }
 }

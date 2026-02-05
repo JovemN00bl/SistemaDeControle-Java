@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhes da Compra</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="container">
+        <a class="navbar-brand" href="/">Sistema de Gestão</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/produtos">Produtos</a></li>
+                <li class="nav-item"><a class="nav-link" href="/clientes">Clientes</a></li>
+                <li class="nav-item"><a class="nav-link" href="/vendas">Vendas</a></li>
+                <li class="nav-item"><a class="nav-link" href="/usuarios">Usuarios</a></li>
+                <li class="nav-item"><a class="nav-link" href="/fornecedores">Fornecedores</a></li>
+                <li class="nav-item"><a class="nav-link active" href="/compras">Compras</a></li>
+            </ul>
+            <form th:action="@{/logout}" method="post" class="d-flex">
+                <button class="btn btn-outline-danger btn-sm" type="submit">Sair</button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Detalhes da compra #<span th:text="${pedido.id}">1</span></h2>
+        <a href="/compras" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Voltar</a>
+    </div>
+
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Informações Gerais</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <strong>Cliente:</strong>
+                    <p class="fs-5" th:text="${pedido.getFornecedor().getNome()}">Nome do fornecedor</p>
+                </div>
+                <div class="col-md-4">
+                    <strong>Data da Venda:</strong>
+                    <p class="fs-5" th:text="${#temporals.format(pedido.dataCompra, 'dd/MM/yyyy HH:mm')}">Data</p>
+                </div>
+                <div class="col-md-4">
+                    <strong>Status:</strong>
+                    <p><span class="badge bg-success" th:text="${pedido.id}">FINALIZADO</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow mt-4">
+        <div class="card-header">
+            <h5 class="mb-0">Itens do Pedido</h5>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-striped mb-0">
+                <thead class="table-light">
+                <tr>
+                    <th>Produto</th>
+                    <th class="text-center">Quantidade</th>
+                    <th class="text-end">Preço Unit. </th>
+                    <th class="text-end">Subtotal</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item : ${pedido.itens}">
+                    <td th:text="${item.produto.nome}">Coca Cola</td>
+                    <td class="text-center" th:text="${item.quantidade}">2</td>
+                    <td class="text-end" th:text="${#numbers.formatCurrency(item.produto.getPrecoCusto())}">R$ 5,00</td>
+                    <td class="text-end" th:text="${#numbers.formatCurrency(item.quantidade * item.produto.getPrecoCusto())}">R$ 10,00</td>
+                </tr>
+                </tbody>
+                <tfoot class="table-dark">
+                <tr>
+                    <td colspan="3" class="text-end fw-bold">TOTAL DA VENDA:</td>
+                    <td class="text-end fw-bold fs-5" th:text="${#numbers.formatCurrency(pedido.getValorTotal())}">R$ 100,00</td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
