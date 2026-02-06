@@ -8,9 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Controller
 @RequiredArgsConstructor
@@ -22,19 +22,24 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Model model) {
-        BigDecimal faturamento  = pedidoRepository.totalVendido();
-        long totalPedidos = pedidoRepository.count();
+
+        LocalDateTime inicioDia = LocalDateTime.now().with(LocalTime.MIN);
+        LocalDateTime inicioMes = LocalDateTime.now().withDayOfMonth(1).with(LocalTime.MIN);
+
+        Double vendasHoje = pedidoRepository.totalVendasApartirDe(inicioDia);
+        Double vendasMes = pedidoRepository.totalVendasApartirDe(inicioMes);
+
+        long totalProdutos = produtoRepository.count();
         long totalClientes = clienteRepository.count();
-        long produtosBaixoEstoque = produtoRepository.countByQuantidadeEstoqueLessThan(10);
+        var produtosBaixoEstoque = produtoRepository.findByQuantidadeEstoqueLessThan(5);
 
-        if (faturamento == null) {
-            faturamento = BigDecimal.ZERO;
-        }
 
-        model.addAttribute("faturamento", faturamento);
-        model.addAttribute("totalPedidos", totalPedidos);
+        model.addAttribute("vendasHoje", vendasHoje);
+        model.addAttribute("vendasMes", vendasMes);
         model.addAttribute("totalClientes", totalClientes);
-        model.addAttribute("BaixoEstoque", produtosBaixoEstoque);
+        model.addAttribute("totalProdutos", totalProdutos);
+        model.addAttribute("alertasEstoque", produtosBaixoEstoque);
+
         return "home";
 
 
