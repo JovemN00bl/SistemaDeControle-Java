@@ -19,7 +19,7 @@
 </head>
 <body class="bg-light">
 
-</html><nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
     <div class="container">
         <a class="navbar-brand" href="/">Sistema de Gestão</a>
         <div class="collapse navbar-collapse">
@@ -139,7 +139,7 @@
                         </span>
                     </div>
 
-                    <div th:if="${alertasEstoque.empty}" class="list-group-item text-center text-success py-4">
+                    <div th:if="${alertasEstoque.isEmpty()}" class="list-group-item text-center text-success py-4">
                         <i class="bi bi-check-circle fs-1"></i>
                         <p class="mb-0 mt-2">Estoque Saudável!</p>
                     </div>
