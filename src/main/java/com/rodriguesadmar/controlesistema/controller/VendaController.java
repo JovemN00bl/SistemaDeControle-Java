@@ -1,8 +1,8 @@
 package com.rodriguesadmar.controlesistema.controller;
 
+import com.rodriguesadmar.controlesistema.config.exception.ResourceNotFoundException;
 import com.rodriguesadmar.controlesistema.model.PedidoVenda;
 import com.rodriguesadmar.controlesistema.repository.PedidoRepository;
-import com.rodriguesadmar.controlesistema.repository.ProdutoRepository;
 import com.rodriguesadmar.controlesistema.service.ClienteService;
 import com.rodriguesadmar.controlesistema.service.ProdutoService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
 import java.text.NumberFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -48,7 +47,7 @@ public class VendaController {
     @GetMapping("/{id}")
     public String detalhesVenda(@PathVariable Long id, Model model) {
         PedidoVenda pedido = pedidoRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Venda invalida: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("ID da venda nao encontrada " + id));
 
         model.addAttribute("pedido", pedido);
         return "vendas/detalhes";

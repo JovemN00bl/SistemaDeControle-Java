@@ -1,5 +1,6 @@
 package com.rodriguesadmar.controlesistema.controller;
 
+import com.rodriguesadmar.controlesistema.config.exception.ResourceNotFoundException;
 import com.rodriguesadmar.controlesistema.model.PedidoCompra;
 import com.rodriguesadmar.controlesistema.repository.FornecedorRepository;
 import com.rodriguesadmar.controlesistema.repository.PedidoCompraRepository;
@@ -52,7 +53,7 @@ public class CompraController {
     @GetMapping("/{id}")
     public String detalheCompras(@PathVariable Long id, Model model) {
         PedidoCompra pedido = pedidoRepository.findById(id).orElseThrow(() ->
-                new IllegalArgumentException("Compra Invalida " + id));
+                new ResourceNotFoundException("Compra Invalida " + id));
         model.addAttribute("pedido", pedido );
         return "compras/detalhes";
 

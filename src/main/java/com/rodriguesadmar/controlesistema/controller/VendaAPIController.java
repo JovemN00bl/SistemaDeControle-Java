@@ -1,5 +1,6 @@
 package com.rodriguesadmar.controlesistema.controller;
 
+import com.rodriguesadmar.controlesistema.config.exception.ResourceNotFoundException;
 import com.rodriguesadmar.controlesistema.model.Cliente;
 import com.rodriguesadmar.controlesistema.model.ItemPedido;
 import com.rodriguesadmar.controlesistema.model.PedidoVenda;
@@ -41,12 +42,12 @@ public class VendaAPIController {
                 PedidoVenda pedido = new PedidoVenda();
 
                 Cliente cliente = clienteService.findById(vendaDTO.getClienteId())
-                        .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado"));
+                        .orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado"));
                 pedido.setCliente(cliente);
 
                 for (ItemVendaDTO itemVenda : vendaDTO.getItens()) {
                     Produto produto = produtoService.findById(itemVenda.getProdutoId())
-                            .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado"));
+                            .orElseThrow(() -> new ResourceNotFoundException("Produto não encontrado"));
 
                     ItemPedido item = new ItemPedido();
                     item.setProduto(produto);

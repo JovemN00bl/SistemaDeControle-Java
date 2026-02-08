@@ -2,6 +2,7 @@ package com.rodriguesadmar.controlesistema.service;
 
 
 import ch.qos.logback.core.net.server.Client;
+import com.rodriguesadmar.controlesistema.config.exception.ResourceNotFoundException;
 import com.rodriguesadmar.controlesistema.model.ItemPedido;
 import com.rodriguesadmar.controlesistema.model.PedidoVenda;
 import com.rodriguesadmar.controlesistema.model.Produto;
@@ -38,7 +39,7 @@ public class PedidoService {
 
         for (ItemPedido item : pedido.getItens()) {
             Produto produto = produtoService.findById(item.getProduto().getId())
-                    .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado"));
+                    .orElseThrow(() -> new ResourceNotFoundException("Produto não encontrado"));
 
             item.setPrecoUnitario(produto.getPrecoVenda());
             BigDecimal subTotal = item.getSubTotal();
