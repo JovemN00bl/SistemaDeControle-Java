@@ -1,5 +1,6 @@
 package com.rodriguesadmar.controlesistema.service;
 
+import com.rodriguesadmar.controlesistema.config.exception.ResourceNotFoundException;
 import com.rodriguesadmar.controlesistema.model.Usuario;
 import com.rodriguesadmar.controlesistema.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,12 +24,16 @@ public class AutenticacaoService implements UserDetailsService {
 
     public UserDetails loadUserByUsername(String username) {
          Usuario name = usuarioRepository.findByUsername(username)
-                 .orElseThrow(() -> new UsernameNotFoundException("Usuario não encontrado"));
+                 .orElseThrow(() -> new ResourceNotFoundException("Usuario não encontrado"));
+
+//        String rolePrefixada = name.getRole().startsWith("ROLE_")
+//                ? name.getRole()
+//                : "ROLE_" + name.getRole();
 
          return User.builder()
                  .username(name.getUsername())
                  .password(name.getPassword())
-                 .roles("USER")
+                 .roles(name.getRole())
                  .build();
     }
 

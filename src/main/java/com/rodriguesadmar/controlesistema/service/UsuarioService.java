@@ -13,12 +13,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
-    private final PasswordEncoder passwordEncoder;
 
 
     public Usuario salvarUsuario(Usuario usuario) {
-        String senhaCriptografada = passwordEncoder.encode(usuario.getPassword());
-        usuario.setPassword(senhaCriptografada);
+
         return usuarioRepository.save(usuario);
 
     }

@@ -16,7 +16,7 @@
 <div class="container">
     <h2>Cadastrar Novo Usuário</h2>
 
-    <form th:action="@{/usuarios/salvar}" th:object="${usuario}" method="post" class="card p-4 mt-3">
+    <form th:action="@{/usuarios/salvar}" th:object="${UsuarioDTO}" method="post" class="card p-4 mt-3">
 
         <div class="mb-3">
             <label>Login (Username):</label>
