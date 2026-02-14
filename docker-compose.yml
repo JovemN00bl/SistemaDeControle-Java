@@ -12,20 +12,51 @@ services:
       - "5432:5432"
     volumes:
       - dados-postgres:/var/lib/postgresql/data
-
+    networks:
+      - minha-rede
 
   meu-sistema:
     build: .
-    container_name: app_controle_sistema
+    container_name: app-controle-sistema
     ports:
       - "8080:8080"
     depends_on:
       - meu-postgres
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://meu-postgres:5432/controle_db
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db_controle_sistema:5432/controle_db
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: 123
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    networks:
+      - minha-rede
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    networks:
+      - minha-rede
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    depends_on:
+      - prometheus
+    networks:
+      - minha-rede
+
+networks:
+  minha-rede:
+    driver: bridge
 
 volumes:
   dados-postgres:
